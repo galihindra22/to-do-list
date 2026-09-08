@@ -1,6 +1,6 @@
 import Todo from "./todo.js";
 import ProjectManager from "./projectmanager.js";
-
+import './styles.css';
 
 function renderTodos(){
     const container = document.querySelector(".container");
