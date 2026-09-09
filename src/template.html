@@ -21,15 +21,15 @@
     <main>
         <div class="container">
             <header>
-                <h1>Default Project</h1>
+                <h1 id="active-project-title">Default Project</h1>
             </header>
-            <div class="todo-list"></div>
+            <div id="todo-list"></div>
 
             <form id="new-todo-form">
                 <label for="todo-title">Todo Title</label>
                 <input type="text" id="todo-title" name="todo-title" required>
                 <label for="todo-description">Description</label>
-                <textarea type="textarea" name="todo-description" id="todo-description" required></textarea>
+                <textarea type="textarea" name="todo-description" id="todo-description"></textarea>
                 <label for="todo-date">Due Date</label>
                 <input type="date" id="todo-date" name="todo-date">
                 <select name="todo-priority" id="todo-priority">
@@ -40,7 +40,6 @@
                 <button type="submit">Add Task</button>
             </form>
         </div>
-        
     </main>
 </body>
 </html>

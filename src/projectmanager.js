@@ -16,7 +16,7 @@ class ProjectManager{
     }
 
     getActiveProject(){
-        return this.projects.find((project) => project.id === this.activeProject);
+        return this.projects.find((project) => project.id === this.activeProjectId);
     }
 
     switchActiveProject(projectId){
