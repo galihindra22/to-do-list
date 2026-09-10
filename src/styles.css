@@ -7,6 +7,6 @@ aside{
     background-color: lightgray;
 }
 
-.todo-form-content{
+.todo-form-content, .project-form-content{
     display: none;
 }

@@ -13,6 +13,7 @@ function init() {
     const projectInput = document.querySelector("#project-input");
     const newTodoForm = document.querySelector("#new-todo-form");
     const collapseTodoBtn = document.querySelector("#collapse-add-todo");
+    const collapseProjectBtn = document.querySelector("#collapse-add-project");
 
     function renderSidebar() {
         projectList.innerHTML = "";
@@ -95,6 +96,12 @@ function init() {
         const todoFormContent = document.querySelector(".todo-form-content");
         if(todoFormContent.style.display === "block") todoFormContent.style.display = "none";
         else todoFormContent.style.display = "block";
+    });
+
+    collapseProjectBtn.addEventListener("click", () => {
+        const projectFormContent = document.querySelector(".project-form-content");
+        if(projectFormContent.style.display === "block") projectFormContent.style.display = "none";
+        else projectFormContent.style.display = "block";
     });
 
     newProjectForm.addEventListener("submit", (e) => {

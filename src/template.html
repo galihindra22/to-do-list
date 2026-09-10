@@ -13,11 +13,14 @@
         <div class="projects">
             <h2>Projects</h2>
             <ul id="project-list"></ul>
-            <form id="new-project-form">
-                <label for="project-input">Project Name</label>
-                <input type="text" id="project-input" name="project-name" required>
-                <button type="submit">Add Project</button>
-            </form>
+            <button type="button" id="collapse-add-project">Add Project</button>
+            <div class="project-form-content">
+                <form id="new-project-form">
+                    <label for="project-input">Project Name</label>
+                    <input type="text" id="project-input" name="project-name" required>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
         </div>
     </aside>
     <main>
@@ -39,7 +42,7 @@
                         <option value="Medium">Medium</option>
                         <option value="High">High</option>
                     </select>
-                    <button type="submit">Add Task</button>
+                    <button type="submit">Submit</button>
                 </form>
             </div>
             <div id="todo-list"></div>
