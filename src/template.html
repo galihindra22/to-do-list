@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
-    <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
@@ -28,15 +27,16 @@
             <header>
                 <h1 id="active-project-title">Default Project</h1>
             </header>
-            <button type="button" id="collapse-add-todo">Add Todo</button>
+            <button type="button" id="collapse-add-todo">Add Task</button>
             <div class="todo-form-content">
                 <form id="new-todo-form">
-                    <label for="todo-title">Todo Title</label>
+                    <label for="todo-title">Task Title</label>
                     <input type="text" id="todo-title" name="todo-title" required>
                     <label for="todo-description">Description</label>
                     <textarea type="textarea" name="todo-description" id="todo-description"></textarea>
                     <label for="todo-date">Due Date</label>
                     <input type="date" id="todo-date" name="todo-date">
+                    <label for="todo-priority">Priority</label>
                     <select name="todo-priority" id="todo-priority">
                         <option value="Low">Low</option>
                         <option value="Medium">Medium</option>
@@ -45,7 +45,13 @@
                     <button type="submit">Submit</button>
                 </form>
             </div>
-            <div id="todo-list"></div>
+            <div class="content-list">
+                <p id="task-column">Task</p>
+                <p id="description-column">Description</p>
+                <p id="date-column">Date</p>
+                <p id="priority-column">Priority</p>
+                <div id="todo-list"></div>
+            </div>    
         </div>
     </main>
 </body>

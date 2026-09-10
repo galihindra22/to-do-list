@@ -63,9 +63,11 @@ function init() {
             });
 
             const titleSpan = document.createElement("span");
+            titleSpan.classList.add("title-item");
             titleSpan.textContent = todo.title;
 
             const description = document.createElement("p");
+            description.classList.add("description-item");
             description.textContent = todo.description;
 
             const dueSpan = document.createElement("span");
@@ -73,6 +75,7 @@ function init() {
             dueSpan.textContent = displayDate(todo.dueDate);
 
             const prioritySpan = document.createElement("span");
+            prioritySpan.classList.add("priority-item");
             prioritySpan.textContent = todo.priority; 
 
             const deleteBtn = document.createElement("button");
@@ -96,12 +99,16 @@ function init() {
         const todoFormContent = document.querySelector(".todo-form-content");
         if(todoFormContent.style.display === "block") todoFormContent.style.display = "none";
         else todoFormContent.style.display = "block";
+        if(collapseTodoBtn.textContent === "Add Task") collapseTodoBtn.textContent = "Close";
+        else collapseTodoBtn.textContent = "Add Task";
     });
 
     collapseProjectBtn.addEventListener("click", () => {
         const projectFormContent = document.querySelector(".project-form-content");
         if(projectFormContent.style.display === "block") projectFormContent.style.display = "none";
         else projectFormContent.style.display = "block";
+        if(collapseProjectBtn.textContent === "Add Project") collapseProjectBtn.textContent = "Close";
+        else collapseProjectBtn.textContent = "Add Project";
     });
 
     newProjectForm.addEventListener("submit", (e) => {

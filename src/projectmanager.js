@@ -5,7 +5,7 @@ class ProjectManager{
     constructor(){
         this.projects = [];
         
-        const defaultProject = new Project("Default");
+        const defaultProject = new Project("Home");
         defaultProject.addTodo(new Todo("Groceries", "buy veggies", "2014-02-11T11:30:30", "Medium"))
 
         this.projects.push(defaultProject);
