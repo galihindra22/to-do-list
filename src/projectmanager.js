@@ -1,10 +1,12 @@
 import Project from "./project.js";
+import Todo from "./todo.js";
 
 class ProjectManager{
     constructor(){
         this.projects = [];
         
         const defaultProject = new Project("Default");
+        defaultProject.addTodo(new Todo("Groceries", "buy veggies", "2014-02-11T11:30:30", "Medium"))
 
         this.projects.push(defaultProject);
         this.activeProjectId = defaultProject.id;

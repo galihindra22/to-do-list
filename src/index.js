@@ -12,6 +12,7 @@ function init() {
     const newProjectForm = document.querySelector("#new-project-form");
     const projectInput = document.querySelector("#project-input");
     const newTodoForm = document.querySelector("#new-todo-form");
+    const collapseTodoBtn = document.querySelector("#collapse-add-todo");
 
     function renderSidebar() {
         projectList.innerHTML = "";
@@ -63,6 +64,9 @@ function init() {
             const titleSpan = document.createElement("span");
             titleSpan.textContent = todo.title;
 
+            const description = document.createElement("p");
+            description.textContent = todo.description;
+
             const dueSpan = document.createElement("span");
             dueSpan.classList.add("due-date");
             dueSpan.textContent = displayDate(todo.dueDate);
@@ -77,7 +81,7 @@ function init() {
                 renderTodos();
             });
 
-            card.append(checkbox, titleSpan, dueSpan, prioritySpan, deleteBtn);
+            card.append(checkbox, titleSpan, description, dueSpan, prioritySpan, deleteBtn);
             todoList.appendChild(card);
         });
     }
@@ -86,6 +90,12 @@ function init() {
         renderSidebar();
         renderTodos();
     }
+
+    collapseTodoBtn.addEventListener("click", () => {
+        const todoFormContent = document.querySelector(".todo-form-content");
+        if(todoFormContent.style.display === "block") todoFormContent.style.display = "none";
+        else todoFormContent.style.display = "block";
+    });
 
     newProjectForm.addEventListener("submit", (e) => {
         e.preventDefault();
