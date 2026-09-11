@@ -59,6 +59,7 @@ function init() {
             checkbox.checked = todo.isChecked;
             checkbox.addEventListener("change", () => {
                 todo.toggleCheck();
+                manager.save();
                 renderTodos();
             });
 
@@ -76,45 +77,122 @@ function init() {
 
             const prioritySpan = document.createElement("span");
             prioritySpan.classList.add("priority-item");
-            prioritySpan.textContent = todo.priority; 
+            prioritySpan.textContent = todo.priority;
+
+            const editBtn = document.createElement("button");
+            editBtn.textContent = "Edit";
+            editBtn.classList.add("edit-btn");
 
             const deleteBtn = document.createElement("button");
-            deleteBtn.textContent = "delete";
+            deleteBtn.textContent = "Delete";
+            deleteBtn.classList.add("delete-btn");
             deleteBtn.addEventListener("click", () => {
                 currentProject.deleteTodo(todo.id);
+                manager.save();
                 renderTodos();
             });
 
-            card.append(checkbox, titleSpan, description, dueSpan, prioritySpan, deleteBtn);
+            editBtn.addEventListener("click", () => {
+                card.innerHTML = "";
+
+                const editForm = document.createElement("form");
+                editForm.classList.add("edit-todo-form");
+
+                const editTitle = document.createElement("input");
+                editTitle.type = "text";
+                editTitle.value = todo.title;
+                editTitle.required = true;
+
+                const editDesc = document.createElement("textarea");
+                editDesc.value = todo.description;
+
+                const editDate = document.createElement("input");
+                editDate.type = "date";
+                editDate.value = todo.dueDate;
+
+                const editPriority = document.createElement("select");
+                ["Low", "Medium", "High"].forEach((lvl) => {
+                    const opt = document.createElement("option");
+                    opt.value = lvl;
+                    opt.textContent = lvl;
+                    if (todo.priority === lvl) opt.selected = true;
+                    editPriority.appendChild(opt);
+                });
+
+                const saveBtn = document.createElement("button");
+                saveBtn.type = "submit";
+                saveBtn.textContent = "Save";
+
+                const cancelBtn = document.createElement("button");
+                cancelBtn.type = "button";
+                cancelBtn.textContent = "Cancel";
+                cancelBtn.addEventListener("click", () => renderTodos());
+
+                editForm.append(editTitle, editDesc, editDate, editPriority, saveBtn, cancelBtn);
+
+                editForm.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    const newTitle = editTitle.value.trim();
+                    if (!newTitle) return;
+
+                    todo.updateDetails(
+                        newTitle,
+                        editDesc.value,
+                        editDate.value,
+                        editPriority.value
+                    );
+                    manager.save();
+                    renderTodos();
+                });
+                card.appendChild(editForm);
+            });
+            if(prioritySpan.textContent === "Low"){
+                prioritySpan.style.backgroundColor = "green";
+            }
+            else if(prioritySpan.textContent === "Medium"){
+                prioritySpan.style.backgroundColor = "yellow";
+            }
+            else if(prioritySpan.textContent === "High"){
+                prioritySpan.style.backgroundColor = "red";
+            }
+
+            if(checkbox.checked){
+                titleSpan.style.textDecoration = "line-through";
+                description.style.textDecoration = "line-through";
+                dueSpan.style.textDecoration = "line-through";
+                prioritySpan.style.textDecoration = "line-through";
+            }
+
+            card.append(checkbox, titleSpan, description, dueSpan, prioritySpan, editBtn, deleteBtn);
             todoList.appendChild(card);
         });
     }
 
-    function render(){
+    function render() {
         renderSidebar();
         renderTodos();
     }
 
     collapseTodoBtn.addEventListener("click", () => {
         const todoFormContent = document.querySelector(".todo-form-content");
-        if(todoFormContent.style.display === "block") todoFormContent.style.display = "none";
+        if (todoFormContent.style.display === "block") todoFormContent.style.display = "none";
         else todoFormContent.style.display = "block";
-        if(collapseTodoBtn.textContent === "Add Task") collapseTodoBtn.textContent = "Close";
+        if (collapseTodoBtn.textContent === "Add Task") collapseTodoBtn.textContent = "Close";
         else collapseTodoBtn.textContent = "Add Task";
     });
 
     collapseProjectBtn.addEventListener("click", () => {
         const projectFormContent = document.querySelector(".project-form-content");
-        if(projectFormContent.style.display === "block") projectFormContent.style.display = "none";
+        if (projectFormContent.style.display === "block") projectFormContent.style.display = "none";
         else projectFormContent.style.display = "block";
-        if(collapseProjectBtn.textContent === "Add Project") collapseProjectBtn.textContent = "Close";
+        if (collapseProjectBtn.textContent === "Add Project") collapseProjectBtn.textContent = "Close";
         else collapseProjectBtn.textContent = "Add Project";
     });
 
     newProjectForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const name = projectInput.value.trim();
-        if(!name) return;
+        if (!name) return;
 
         const newProject = manager.addProject(name);
         manager.switchActiveProject(newProject.id);
@@ -128,12 +206,13 @@ function init() {
         const descriptionInput = document.querySelector("#todo-description");
         const dateInput = document.querySelector("#todo-date");
         const priorityInput = document.querySelector("#todo-priority");
-        
+
         const title = titleInput.value.trim();
-        if(!title) return;
+        if (!title) return;
 
         const activeProject = manager.getActiveProject();
         activeProject.addTodo(new Todo(title, descriptionInput.value, dateInput.value, priorityInput.value));
+        manager.save();
 
         newTodoForm.reset();
         renderTodos();

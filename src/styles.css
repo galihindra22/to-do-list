@@ -78,11 +78,11 @@ h2{
 
 .content-list{
     display: grid;
-    grid-template-columns: 20px 1fr 2fr 1fr 1fr 60px 50px;
+    grid-template-columns: 20px 1fr 2fr 1fr 1fr 60px 60px;
     gap: 10px;
 }
 
-.content-list > p, .todo-card > *{
+.content-list > p, .todo-card :not(form){
     background-color: antiquewhite;
 }
 
@@ -91,7 +91,7 @@ h2{
 }
 
 #todo-list{
-    grid-column: 1/7;
+    grid-column: 1/-1;
     display: grid;
     grid-template-columns: subgrid;  
     row-gap: 10px;
@@ -103,6 +103,15 @@ h2{
     grid-template-columns: subgrid;
 }
 
+.edit-todo-form {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-column: 1/-1;
+    gap: 8px;
+    width: 100%;
+}
 
-
+.edit-todo-form > input[type="text"]{
+    grid-column: 2/3;
+}
 
